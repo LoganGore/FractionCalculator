@@ -1,0 +1,35 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractionCalculator.App", "FractionCalculator\FractionCalculator.App.csproj", "{3328BC8E-887C-484B-9456-10FBED8EFC33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractionCalculator.Lib", "FractionCalculator.Lib\FractionCalculator.Lib.csproj", "{DA7ED606-2A1A-4495-94AB-85023D1F7208}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractionCalculator.Test", "FractionCalculator.Test\FractionCalculator.Test.csproj", "{A2B3C1E4-4D97-4BA6-9DEC-94151265442E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D84BBEE9-D4C1-46EF-B366-313A0AB27F10}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		Dockerfile = Dockerfile
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3328BC8E-887C-484B-9456-10FBED8EFC33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3328BC8E-887C-484B-9456-10FBED8EFC33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3328BC8E-887C-484B-9456-10FBED8EFC33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3328BC8E-887C-484B-9456-10FBED8EFC33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA7ED606-2A1A-4495-94AB-85023D1F7208}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA7ED606-2A1A-4495-94AB-85023D1F7208}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA7ED606-2A1A-4495-94AB-85023D1F7208}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA7ED606-2A1A-4495-94AB-85023D1F7208}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2B3C1E4-4D97-4BA6-9DEC-94151265442E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2B3C1E4-4D97-4BA6-9DEC-94151265442E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2B3C1E4-4D97-4BA6-9DEC-94151265442E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2B3C1E4-4D97-4BA6-9DEC-94151265442E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
