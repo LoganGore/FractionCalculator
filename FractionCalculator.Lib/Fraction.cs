@@ -40,6 +40,21 @@ namespace FractionCalculator.Lib
             }
         }
 
+        //
+        // Overloaded constructors to inject string separators.
+        //
+        public Fraction(int numerator, int denominator, string wholeSeparator, string fractionSeparator):this(numerator,denominator)
+        {
+            this.wholeSeparator = wholeSeparator;
+            this.fractionSeparator = fractionSeparator;
+        }
+
+        public Fraction(int whole, int numerator, int denominator, string wholeSeparator, string fractionSeparator) : this(whole, numerator, denominator)
+        {
+            this.wholeSeparator = wholeSeparator;
+            this.fractionSeparator = fractionSeparator;
+        }
+
         public int getNumerator()
         {
             return num;
@@ -70,57 +85,6 @@ namespace FractionCalculator.Lib
             }
 
             return a;
-        }
-
-        // These parameters will presumably be set with values from the Config class, but will
-        // use sane defaults nonetheless. 
-        public string ToString(string mixedSeparator = "_", string fractionSeparator = "/")
-        {
-            string fractString = "";
-
-            // Whole number
-            if (Math.Abs(num) == Math.Abs(den) || Math.Abs(den) == 1)
-            {
-                if (num < 0 || den < 0) fractString += "-";
-
-                int whole = Math.Abs(num) / Math.Abs(den);
-
-                fractString += whole.ToString();
-            }
-            // Mixed number
-            else if (Math.Abs(num) > Math.Abs(den))
-            {
-                int whole = Math.Abs(num) / Math.Abs(den);
-                int modNum = Math.Abs(num) % Math.Abs(den);
-
-                if (num < 0 || den < 0) fractString += "-";
-
-                // Well-formed mixed number.
-                fractString += whole.ToString() + mixedSeparator + modNum.ToString() + fractionSeparator + Math.Abs(den).ToString();
-
-            }
-            // Fraction
-            else
-            {
-                // Proper fraction.
-                if (num != 0)
-                {
-                    if (num < 0 || den < 0)
-                    {
-                        fractString += "-";
-                    }
-
-                    fractString += Math.Abs(num).ToString() + fractionSeparator + Math.Abs(den).ToString();
-                }
-
-                // Return zero if numerator is zero value.
-                else
-                {
-                    fractString = "0";
-                }
-            }
-
-            return fractString;
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 namespace FractionCalculator.Lib
 {
-    public interface IExpressionEvalutor<T>
+    public interface IStringExpressionEvalutor
     {
-        T Eval(string[] expression);
+        string Eval(string[] expression);
     }
 }

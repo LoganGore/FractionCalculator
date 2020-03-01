@@ -29,5 +29,30 @@ namespace FractionCalculator.App
             return config["whole_separator"] ?? throw new Exception("App configuration not set.");
         }
 
+        public static string getAdditionOperator()
+        {
+            return config["addition_operator"] ?? throw new Exception("App configuration not set.");
+        }
+
+        public static string getSubractionOperator()
+        {
+            return config["subtraction_operator"] ?? throw new Exception("App configuration not set.");
+        }
+
+        public static string getDivisionOperator()
+        {
+            return config["division_operator"] ?? throw new Exception("App configuration not set.");
+        }
+
+        public static string getMultiplicationOperator()
+        {
+            return config["multiplication_operator"] ?? throw new Exception("App configuration not set.");
+        }
+
+        public static string getNegativeCharacter()
+        {
+            return config["negative_character"] ?? throw new Exception("App configuration not set.");
+        }
+
     }
 }

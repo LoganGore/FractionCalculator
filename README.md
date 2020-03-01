@@ -51,11 +51,18 @@ a mixed number separator value (default is \_). These can be configured. See lat
 64/4 \* -3 + 9 -> -39
 
 ## Configuration in `appsettings.json` file
-The program is ready to run out of the box. However, the values for the mixed
-number separator "2[_]1/2" and fraction separator "2_1[/]2" can be configured
-through the `appsettings.json` file of the project by setting the respective JSON
+Numerical separators and athmatical operators can also be configured through the `appsettings.json` file of the project by setting the respective JSON
 values.
-Defaults are mixed_separator = "\_" (underscore character), and fraction_separator = "/" (forward slash character).
+Current file is set to:
+`{
+  "fraction_separator": "/",
+  "whole_separator": "_",
+  "multiplication_operator": "*",
+  "subtraction_operator": "-",
+  "division_operator": "/",
+  "addition_operator": "+",
+  "negative_character": "-"
+}`
 
 ## Solution Structure
 The solution is broken down into three pieces:

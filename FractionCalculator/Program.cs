@@ -12,22 +12,22 @@ namespace FractionCalculator.App
                 FractionExpressionEvaluator evaluator = new FractionExpressionEvaluator(
                     SettingsLoader.getWholeSeparator(),
                     SettingsLoader.getFractionSeparator(),
+                    SettingsLoader.getAdditionOperator(),
+                    SettingsLoader.getSubractionOperator(),
+                    SettingsLoader.getMultiplicationOperator(),
+                    SettingsLoader.getDivisionOperator(),
+                    SettingsLoader.getNegativeCharacter(),
                     new FractionCalculator.Lib.FractionCalculator()
-                );
+                ) ;
 
                 //
-                // Allow argument-based operation or interactive console.
+                // Allow CLI argument-based operation, or interactive console.
                 //
                 if (args!=null && args.Length > 0)
                 {
                     try
                     {
-                        Console.WriteLine(evaluator.Eval(args)
-                            .ToString(
-                                SettingsLoader.getWholeSeparator(),
-                                SettingsLoader.getFractionSeparator()
-                                )
-                            );
+                        Console.WriteLine(evaluator.Eval(args));
                     }
                     catch(Exception ex)
                     {
@@ -48,12 +48,7 @@ namespace FractionCalculator.App
 
                         string[] consoleArgs = exp.Split(" ");
 
-                        Console.WriteLine(evaluator.Eval(consoleArgs)
-                            .ToString(
-                                SettingsLoader.getWholeSeparator(),
-                                SettingsLoader.getFractionSeparator()
-                                )
-                            );
+                        Console.WriteLine(evaluator.Eval(consoleArgs));
                     }
                     catch(Exception ex)
                     {

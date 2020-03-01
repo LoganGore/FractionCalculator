@@ -7,12 +7,9 @@ namespace FractionCalculator.Test
     {
         FractionExpressionEvaluator evaluator;
 
-        string wholeSeparator = "_";
-        string fracSeparator = "/";
-
         public FractionCalculatorTests()
         {
-            evaluator = new FractionExpressionEvaluator(wholeSeparator, fracSeparator,
+            evaluator = new FractionExpressionEvaluator("_", "/","+","-","*","/","-",
     new FractionCalculator.Lib.FractionCalculator()
 );
         }
@@ -21,11 +18,7 @@ namespace FractionCalculator.Test
         {
             string[] consoleArgs = input.Split(" ");
 
-            return evaluator.Eval(consoleArgs)
-                .ToString(
-                    wholeSeparator,
-                    fracSeparator
-                    );
+            return evaluator.Eval(consoleArgs);
         }
 
         //
@@ -36,7 +29,6 @@ namespace FractionCalculator.Test
         public void Add_Fractions()
         {
             Assert.AreEqual("1/2", calc("1/4 + 2/8"));
-
         }
 
         [Test]

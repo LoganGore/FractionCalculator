@@ -12,27 +12,48 @@ namespace FractionCalculator.Lib
     /// handled by ICalculator.
     /// 
     /// </summary>
-    public class FractionExpressionEvaluator : IExpressionEvalutor<Fraction>
+    public class FractionExpressionEvaluator : IStringExpressionEvalutor
     {
         ICalculator<Fraction> calc;
-        string mixedSeparator;
-        string fractionSeparator;
+        readonly string wholeSeparator;
+        readonly string fractionSeparator;
+        readonly string additionOperator;
+        readonly string subtractionOperator;
+        readonly string multiplicationOperator;
+        readonly string divisionOperator;
+        readonly string negativeCharacter;
 
-        public FractionExpressionEvaluator(string mixedSeparator, string fractionSeparator, ICalculator<Fraction> calc)
+        public FractionExpressionEvaluator(
+            string wholeSeparator,
+            string fractionSeparator,
+            string additionOperator,
+            string subtractionOperator,
+            string multiplicationOperator,
+            string divisionOperator,
+            string negativeCharacter,
+            ICalculator<Fraction> calc)
         {
+            // Inject calculator.
             this.calc = calc;
-            this.mixedSeparator = mixedSeparator;
+
+            // Supply settings.
+            this.wholeSeparator = wholeSeparator;
             this.fractionSeparator = fractionSeparator;
+            this.additionOperator = additionOperator;
+            this.subtractionOperator = subtractionOperator;
+            this.multiplicationOperator = multiplicationOperator;
+            this.divisionOperator = divisionOperator;
+            this.negativeCharacter = negativeCharacter;
         }
 
-        private Fraction parseFractionInput(string frac)
+        private Fraction parseString(string frac)
         {
             Fraction f;
 
             // Mixed number. 
-            if (frac.Contains(mixedSeparator))
+            if (frac.Contains(wholeSeparator))
             {
-                string[] mixedParts = frac.Split(mixedSeparator);
+                string[] mixedParts = frac.Split(wholeSeparator);
 
                 if (mixedParts.Length != 2) throw new Exception("Malformed mixed number: " + frac);
 
@@ -45,7 +66,7 @@ namespace FractionCalculator.Lib
                 int num = int.Parse(fracParts[0]);
                 int den = int.Parse(fracParts[1]);
 
-                f = new Fraction(whole, num, den);
+                f = new Fraction(whole, num, den, wholeSeparator, fractionSeparator);
             }
             // Fraction.
             else if (frac.Contains(fractionSeparator))
@@ -57,7 +78,7 @@ namespace FractionCalculator.Lib
                 int num = int.Parse(fracParts[0]);
                 int den = int.Parse(fracParts[1]);
 
-                f = new Fraction(num, den);
+                f = new Fraction(num, den, wholeSeparator, fractionSeparator);
             }
             // Whole number.
             else
@@ -69,7 +90,81 @@ namespace FractionCalculator.Lib
             return f;
         }
 
-        public Fraction Eval(string[] input)
+        /// <summary>
+        /// Converts a Fraction instance to a string.
+        /// </summary>
+        /// <param name="f"></param>
+        /// <returns></returns>
+        private string fractionToString(Fraction f)
+        {
+            string fractString = String.Empty;
+
+            int den = f.getDenomenator();
+            int num = f.getNumerator();
+
+            // Whole number
+            if (Math.Abs(num) == Math.Abs(den) || Math.Abs(den) == 1)
+            {
+                if (num < 0 || den < 0) fractString += negativeCharacter;
+
+                int whole = Math.Abs(num) / Math.Abs(den);
+
+                fractString += whole.ToString();
+            }
+            // Mixed number
+            else if (Math.Abs(num) > Math.Abs(den))
+            {
+                int whole = Math.Abs(num) / Math.Abs(den);
+                int modNum = Math.Abs(num) % Math.Abs(den);
+
+                if (num < 0 || den < 0) fractString += negativeCharacter;
+
+                // Well-formed mixed number.
+                fractString += whole.ToString() + wholeSeparator + modNum.ToString() + fractionSeparator + Math.Abs(den).ToString();
+
+            }
+            // Fraction
+            else
+            {
+                // Proper fraction.
+                if (num != 0)
+                {
+                    if (num < 0 || den < 0)
+                    {
+                        fractString += negativeCharacter;
+                    }
+
+                    fractString += Math.Abs(num).ToString() + fractionSeparator + Math.Abs(den).ToString();
+                }
+
+                // Return zero if numerator is zero value.
+                else
+                {
+                    fractString = "0";
+                }
+            }
+
+            return fractString;
+        }
+
+        // Validates a string operator is valid given supplied operators. 
+        private bool isValidOperator(string op)
+        {
+            if (multiplicationOperator == op) return true;
+            else if (divisionOperator == op) return true;
+            else if (additionOperator == op) return true;
+            else if (subtractionOperator == op) return true;
+            else return false;
+        }
+
+        /// <summary>
+        /// Evaluates a string expression, and interacts with the ICalculator instance to obtain an
+        /// answer which is then parsed to a string and returned to the caller. This function provides
+        /// logical buffering between the input/output and the calculator operations.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public string Eval(string[] input)
         {
             // Initial check for input. 
             if (input == null || input.Length == 0) throw new Exception("Input cannot be empty.");
@@ -89,14 +184,14 @@ namespace FractionCalculator.Lib
                 // This is only true on the first number.
                 if (lhs == null)
                 {
-                    lhs = parseFractionInput(a);
+                    lhs = parseString(a);
                 }
                 // -- operator --
                 // lhs has value.
                 // op is null, meaning we set the op.
                 else if (op == null)
                 {
-                    if ("*-/+".Contains(a))
+                    if (isValidOperator(a))
                     {
                         op = a;
                     }
@@ -110,32 +205,24 @@ namespace FractionCalculator.Lib
                 // and perform the math. This is the general case.
                 else
                 {
-                    switch (op)
+                    if (op == additionOperator) {
+                        lhs = calc.Add(lhs, parseString(a));
+                    }
+                    else if(op == subtractionOperator)
                     {
-                        case "+":
-                            {
-                                lhs = calc.Add(lhs, parseFractionInput(a));
-                                break;
-                            }
-                        case "-":
-                            {
-                                lhs = calc.Subtract(lhs, parseFractionInput(a));
-                                break;
-                            }
-                        case "*":
-                            {
-                                lhs = calc.Multiply(lhs, parseFractionInput(a));
-                                break;
-                            }
-                        case "/":
-                            {
-                                lhs = calc.Divide(lhs, parseFractionInput(a));
-                                break;
-                            }
-                        default:
-                            {
-                                throw new Exception("Arithmatic error: unknown operator.");
-                            }
+                        lhs = calc.Subtract(lhs, parseString(a));
+                    }
+                    else if(op == multiplicationOperator)
+                    {
+                        lhs = calc.Multiply(lhs, parseString(a));
+                    }
+                    else if(op==divisionOperator)
+                    {
+                        lhs = calc.Divide(lhs, parseString(a));
+                    }
+                    else
+                    { 
+                        throw new Exception("Arithmatic error: unknown operator."); 
                     }
 
                     op = null;
@@ -145,7 +232,7 @@ namespace FractionCalculator.Lib
 
             if (op != null) throw new Exception("Invalid input: trailing operators not supported.");
 
-            return lhs;
+            return fractionToString(lhs);
         }
     }
 }
