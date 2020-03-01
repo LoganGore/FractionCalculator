@@ -26,7 +26,7 @@ Docker is the recommended build/run method.
 
 ### Build/Run Locally with .NET (semi-easy...)
 - Install .NET Core 3.1 on your machine: https://dotnet.microsoft.com/download/dotnet-core/3.1
-- cd to the root directory of this repo and run `dotnet restore` and `dotnet build`
+- cd to the root directory of this repo and run `dotnet restore` ,then `dotnet build`, then `dotnet publish -c Release -f netcoreapp3.1`. Reference this link for info on the publish command, or for architecture-specific publishing https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-publish.
 - cd to the publish directory of the console application via `cd FractionCalculator/bin/Release/netcoreapp3.1/publish
 - Invoke the program with its DLL: `dotnet FractionCalculator.App.dll 1/64 + 2/3`
 - Alternatively, you can run the program as an interactive console by just running `dotnet FractionCalculator.App.dll`,
