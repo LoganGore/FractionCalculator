@@ -66,7 +66,7 @@ namespace FractionCalculator.Lib
                 int num = int.Parse(fracParts[0]);
                 int den = int.Parse(fracParts[1]);
 
-                f = new Fraction(whole, num, den, wholeSeparator, fractionSeparator);
+                f = new Fraction(whole, num, den);
             }
             // Fraction.
             else if (frac.Contains(fractionSeparator))
@@ -78,7 +78,7 @@ namespace FractionCalculator.Lib
                 int num = int.Parse(fracParts[0]);
                 int den = int.Parse(fracParts[1]);
 
-                f = new Fraction(num, den, wholeSeparator, fractionSeparator);
+                f = new Fraction(num, den);
             }
             // Whole number.
             else

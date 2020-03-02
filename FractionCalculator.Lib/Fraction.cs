@@ -40,21 +40,6 @@ namespace FractionCalculator.Lib
             }
         }
 
-        //
-        // Overloaded constructors to inject string separators.
-        //
-        public Fraction(int numerator, int denominator, string wholeSeparator, string fractionSeparator):this(numerator,denominator)
-        {
-            this.wholeSeparator = wholeSeparator;
-            this.fractionSeparator = fractionSeparator;
-        }
-
-        public Fraction(int whole, int numerator, int denominator, string wholeSeparator, string fractionSeparator) : this(whole, numerator, denominator)
-        {
-            this.wholeSeparator = wholeSeparator;
-            this.fractionSeparator = fractionSeparator;
-        }
-
         public int getNumerator()
         {
             return num;
