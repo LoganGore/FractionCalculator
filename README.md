@@ -45,10 +45,10 @@ a mixed number separator value (default is \_). These can be configured. See lat
 - Left to right execution. No order of operations is enforced. 
 
 ### Examples
-2 + 1          -> 3
-2_1/2 - 1/2    -> 2
--2_3/12 + 4/8  -> -1_3/4
-64/4 \* -3 + 9 -> -39
+- 2 + 1          -> 3
+- 2_1/2 - 1/2    -> 2
+- -2_3/12 + 4/8  -> -1_3/4
+- 64/4 \* -3 + 9 -> -39
 
 ## Configuration in `appsettings.json` file
 Numerical separators and athmatical operators can also be configured through the `appsettings.json` file of the project by setting the respective JSON
